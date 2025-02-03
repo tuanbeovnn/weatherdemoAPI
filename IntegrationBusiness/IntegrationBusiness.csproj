@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.1.0"/>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Resilience" Version="9.1.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\IntegrationApplication\IntegrationApplication.csproj"/>
+        <ProjectReference Include="..\IntegrationDtos\IntegrationDtos.csproj"/>
+        <ProjectReference Include="..\IntegrationModels\IntegrationModels.csproj"/>
+    </ItemGroup>
+
+</Project>
