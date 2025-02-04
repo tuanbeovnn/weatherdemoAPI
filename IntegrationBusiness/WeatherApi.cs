@@ -46,7 +46,6 @@ public class WeatherApi
             },
             cancellationToken);
 
-        //var response = await client.GetAsync("/data/2.5/weather?" + requestUri);
 
         if (response.IsSuccessStatusCode)
         {
