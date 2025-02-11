@@ -19,4 +19,8 @@
       <ProjectReference Include="..\IntegrationModels\IntegrationModels.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

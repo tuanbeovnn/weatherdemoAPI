@@ -1,4 +1,5 @@
 using IntegrationBusiness.ConfigExtentions;
+using IntegrationBusiness.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,14 @@ builder.Services
     .AddAllServices()
     .AddHttpResiliencePipeline()
     .AddSqlOptions(builder.Configuration);
+
+builder.Host.AddSerilog();
+
+// builder.Services.AddAutoMapper(typeof(PostMappingProfile));
+
+builder.Services.AddMapperAndValidation();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -35,7 +35,7 @@ public class WeatherApi
         var response = await pipeline.ExecuteAsync(async token =>
 
             {
-                var res = await client.GetAsync("/data/2.5/weather?" + requestUri, token);
+                var res = await client.GetAsync("/data/2.7/weather?" + requestUri, token);
 
                 if (res.StatusCode == HttpStatusCode.NotFound)
                 {

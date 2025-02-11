@@ -6,6 +6,7 @@ namespace IntegrationApplication;
 public interface IUnitOfWork
 {
     WeatherInfoRepository WeatherInfo { get; }
+    PostRepository PostRepository { get; }
 
     Task<bool> SaveChangeAsync();
     bool SaveChange();
@@ -16,6 +17,7 @@ public interface IUnitOfWork
 public class UnitOfWork(IntegrationDbContext context) : IUnitOfWork
 {
     public WeatherInfoRepository WeatherInfo => new WeatherInfoRepository(context);
+    public PostRepository PostRepository => new PostRepository(context);
 
     public async Task<bool> SaveChangeAsync()
     {
