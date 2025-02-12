@@ -51,4 +51,17 @@ public class PostServiceImpl : IPostService
         return new Response<bool>(saved, saved ? "Post deleted successfully" : "Failed to delete post")
             { Data = saved };
     }
+
+    public async Task<Response<PostResponse>> FindById(long id)
+    {
+        var post = await _unitOfWork.PostRepository.GetByIdAsync(id);
+        if (post == null)
+        {
+            return new Response<PostResponse>(false, $"Could not find post with ID {id}");
+        }
+
+        var mappedPost = _mapper.Map<PostResponse>(post);
+        return new Response<PostResponse>(true, "Post retrieved successfully") { Data = mappedPost };
+    }
+
 }

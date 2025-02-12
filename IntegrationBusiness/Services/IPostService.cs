@@ -9,4 +9,6 @@ public interface IPostService
     Task<Response<PostResponse>> InsertNewPost(PostRequest postRequest);
 
     Task<Response<bool>> removePost(long id);
+    Task<Response<PostResponse>> FindById(long id);
+
 }
