@@ -32,4 +32,13 @@ public class PostController : ControllerBase
 
         return Created($"api/posts/{response.Data.Id}", response);
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> RemovePost(long id)
+    {
+        var response = await _postService.removePost(id);
+        return response.Success ? Ok(response) : NotFound(response);
+    }
+    
+    
 }

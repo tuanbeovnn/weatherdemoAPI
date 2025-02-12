@@ -8,13 +8,17 @@ namespace IntegrationApplication.Repositories;
 
 public interface IGenericRepository<T> where T : ModelBaseEntity
 {
-    IEnumerable<T> GetAll();
-    T? GetById(object id);
+    Task<IEnumerable<T>> GetAll();
+    Task<T?> GetByIdAsync(object id);
 
     void Insert(T obj);
 
+    void Update(T obj);
+    void Delete(object id);
+
     bool Save();
     Task<bool> SaveAsync();
+    void Update<TProperty>(T entity, Expression<Func<T, TProperty>> property, TProperty newValue);
 }
 
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : ModelBaseEntity
@@ -29,19 +33,41 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : Mod
     }
 
 
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-        return _table.ToList();
+        return await _table.ToListAsync();
     }
 
-    public T? GetById(object id)
+    public async Task<T?> GetByIdAsync(object id)
     {
-        return _table.Find(id);
+        return await _table.FindAsync(id);
     }
 
     public void Insert(T obj)
     {
         _table.Add(obj);
+    }
+
+    public void Update(T obj)
+    {
+        _table.Attach(obj);
+        _context.Entry(obj).State = EntityState.Modified;
+    }
+
+    public void Delete(object id)
+    {
+        var existing = _table.Find(id);
+        if (existing != null)
+        {
+            _table.Remove(existing);
+        }
+    }
+
+    public void Update<TProperty>(T entity, Expression<Func<T, TProperty>> property, TProperty newValue)
+    {
+        var entry = _context.Entry(entity);
+        entry.Property(property).CurrentValue = newValue;
+        entry.Property(property).IsModified = true;
     }
 
     public bool Save()

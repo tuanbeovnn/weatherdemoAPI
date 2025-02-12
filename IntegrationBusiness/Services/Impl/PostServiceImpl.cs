@@ -37,4 +37,18 @@ public class PostServiceImpl : IPostService
             Data = _mapper.Map<PostResponse>(newPost)
         };
     }
+
+    public async Task<Response<bool>> removePost(long id)
+    {
+        var post = await _unitOfWork.PostRepository.GetByIdAsync(id);
+        if (post == null)
+        {
+            return new Response<bool>(false, $"Post with ID {id} not found.") { Data = false };
+        }
+
+        _unitOfWork.PostRepository.Delete(post);
+        var saved = await _unitOfWork.SaveChangeAsync();
+        return new Response<bool>(saved, saved ? "Post deleted successfully" : "Failed to delete post")
+            { Data = saved };
+    }
 }
